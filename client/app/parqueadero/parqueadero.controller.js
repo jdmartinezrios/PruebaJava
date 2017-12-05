@@ -3,14 +3,13 @@
 (function(){
 
 class ParqueaderoComponent {
-<<<<<<< HEAD
-  constructor(parqueaderosservice) {
-    this.message = 'Hello';
-=======
   constructor(automovilesService,parqueaderosService,puestosService) {
   this.automovilesService = automovilesService;
   this.parqueaderosService = parqueaderosService;
   this.puestosService = puestosService;
+  this.show=false;
+  this.show2=false;
+  this.show3=false;
   }
 
   $onInit(){
@@ -33,6 +32,7 @@ class ParqueaderoComponent {
   }
 
   ingresarCarro(){
+    this.show=true;
     this.automovilesService.save(this.ingresar).$promise
     .then(response => {
       console.log(response,'se envio');
@@ -43,16 +43,8 @@ class ParqueaderoComponent {
     });
   }
 
-  /*sacarCarro(item){
-    this.automovilesService.update(item).$promise
-    .then(response => {
-      console.log(response,'si se saco el carro');
-    })
-    .catch(err => {
-      console.log(err);
-    });
-  }*/
   asignarPuesto(){
+    this.show2=true;
     console.log(this.asignar);
     this.puestosService.save(this.asignar).$promise
     .then(response => {
@@ -64,9 +56,9 @@ class ParqueaderoComponent {
 
     });
   }
-  actualizarPuesto(){
-    this.item;
-    this.puestosService.update(id:this.item.id, this.item).$promise
+  actualizarPuesto(item){
+    //this.show3=true;
+    this.puestosService.update(item).$promise
     .then(response => {
       console.log(response,'se saco el carro');
       this.carroActualizado = response;
@@ -75,7 +67,6 @@ class ParqueaderoComponent {
       console.log(err);
 
     });
->>>>>>> 9a7a42fff542adc70968437066c263c4f76615cf
   }
 }
 
@@ -83,11 +74,7 @@ angular.module('parqueaderosApp')
   .component('parqueadero', {
     templateUrl: 'app/parqueadero/parqueadero.html',
     controller: ParqueaderoComponent,
-<<<<<<< HEAD
-    controllerAs: 'parqueaderoCtrl'
-=======
     controllerAs: 'vm'
->>>>>>> 9a7a42fff542adc70968437066c263c4f76615cf
   });
 
 })();
