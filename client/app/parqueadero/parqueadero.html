@@ -1,0 +1,83 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 offset-col-md-4">
+			<form>
+				<h4>Parqueadero</h4>
+				<div class="form-group">
+					<input type="text" class="form-control" ng-model="vm.ingresar.placa" placeholder="Registre la placa">
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" ng-model="vm.ingresar.horaEntrada" placeholder="Hora entrada">
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" ng-model="vm.ingresar.horaSalida" placeholder="Hora salida">
+				</div>
+				<div class="form-group">
+					<div type="text" class="form-control" placeholder="Hora Actual">{{vm.parqueadero[0].horaActual}}</div>
+				</div>
+				<div class="form-group">
+					<div type="text" class="form-control" placeholder="Tarifa">${{vm.parqueadero[0].tarifa}}</div>
+				</div>
+
+				<button ng-click="vm.ingresarCarro()" class="btn btn-primary col-md-3">Asignar puesto</button>
+			</form>
+		</div>
+		<div class="col-md-2">
+			<div>
+			placa: {{vm.mostrar.placa}}<br>
+			hora entrada: {{vm.mostrar.horaEntrada}}<br>
+			hora salida: {{vm.mostrar.horaSalida}}
+			</div>
+		</div>
+	</div>
+	</div>
+	<br>
+	<div class="container">
+		<div class="row">
+				<div class="col-md-6 offset-col-md-4">
+					<form>
+						<h4>Asignar Puesto</h4>
+						<div class="form-group">
+							<input type="text" class="form-control" ng-model="vm.asignar.automovil.placa" placeholder="Ingrese la placa">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" ng-model="vm.asignar.parqueadero.id" placeholder="Ingrese id del parqueadero">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" ng-model="vm.asignar.id" placeholder="Puesto">
+						</div>
+						<!--<button type="button" ng-change="actualizarPuesto(vm.asignar.id)" name="button">Sacar carro</button>-->
+						<button ng-click="vm.asignarPuesto()" class="btn btn-primary col-md-3">Asignar puesto</button>
+					</form>
+				</div>
+				<div class="col-md-2">
+					<div>
+					placa: {{vm.error.automovil.placa}}<br>
+					id del parqueadero: {{vm.error.parqueadero.id}}<br>
+					puesto asignado: {{vm.error.asignar.id}}
+					</div>
+				</div>
+		</div>
+	</div>
+	<br>
+	<div class="container">
+		<div class="row">
+				<div class="col-md-6 offset-col-md-4">
+					<form>
+						<h4>Dar salida al carro</h4>
+						<div class="form-group">
+							<input type="text" class="form-control" ng-model="vm.item.automovil.placa" placeholder="Ingrese la placa">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" ng-model="vm.item.parqueadero.id" placeholder="Ingrese id del parqueadero">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" ng-model="vm.item.id" placeholder="Puesto">
+						</div>
+						<button ng-click="vm.actualizarPuesto()" class="btn btn-primary col-md-3">Asignar puesto</button>
+					</form>
+				</div>
+				<div class="col-md-2">
+				</div>
+		</div>
+	</div>
