@@ -24,13 +24,19 @@ class ParqueaderoComponent {
     this.puestosService.query().$promise
     .then(response => {
       console.log(response,'puestos');
+        for(var i=0; i < response.length; i++){
+          if(response[i].diponibilidadPuesto){
+          response[i].diponibilidadPuesto = 'Disponible';
+        }else{
+          response[i].diponibilidadPuesto = 'Ocupado';
+        }
+      }
       this.puestos = response;
     })
     .catch(err => {
       console.log(err);
     });
   }
-
   ingresarCarro(){
     this.show=true;
     this.automovilesService.save(this.ingresar).$promise
@@ -58,10 +64,12 @@ class ParqueaderoComponent {
   }
   actualizarPuesto(item){
     //this.show3=true;
+    $('#modalPuesto').modal();
     this.puestosService.update(item).$promise
     .then(response => {
       console.log(response,'se saco el carro');
       this.carroActualizado = response;
+      console.log(this.carroActualizado,'item cambiado');
     })
     .catch(err => {
       console.log(err);

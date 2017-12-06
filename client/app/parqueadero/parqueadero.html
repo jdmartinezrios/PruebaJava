@@ -24,7 +24,7 @@
 				<button ng-click="vm.ingresarCarro()" class="btn btn-primary col-md-3">Ingresar Carro</button>
 			</form>
 		</div>
-		<div class="col-md-6" ng-show="vm.show">		
+		<div class="col-md-6" ng-show="vm.show">
 			<table class="table table-responsive">
 				<thead>
 					<tr>
@@ -34,9 +34,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>{{vm.mostrar.placa}}</td>
-						<td>{{vm.mostrar.horaEntrada}}</td>
+					<tr>trada}}</td>
 						<td>{{vm.mostrar.horaSalida}}</td>
 					</tr>
 				</tbody>
@@ -63,7 +61,7 @@
 						<button ng-click="vm.asignarPuesto()" class="btn btn-primary col-md-3">Asignar puesto</button>
 					</form>
 				</div>
-				<div class="col-md-6" ng-show="vm.show2">					
+				<div class="col-md-6" ng-show="vm.show2">
 					<table class="table table-responsive">
 						<thead>
 							<tr>
@@ -107,24 +105,50 @@
 								<th>Placa</th>
 								<th>Parqueadero</th>
 								<th>Puesto</th>
+								<th>Disponibilidad de Puesto</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="item in vm.puestos">								
+							<tr ng-repeat="item in vm.puestos">
 								<td>{{item.automovil.placa}}</td>
 								<td>{{item.parqueadero.id}}</td>
+								<td>{{item.id}}</td>
 								<td>
-									<input type="text" placeholder="{{item.id}}" ng-model="item.id">
+										<!--<input type="number" max="1" min="0" ng-value="item.diponibilidadPuesto" placeholder="{{item.diponibilidadPuesto}}" ng-model="item.diponibilidadPuesto">-->
+										<select class="form-control" name="" style="width:200px">
+											<option value="1">{{item.diponibilidadPuesto}}</option>
+											<option value="0">{{item.diponibilidadPuesto}}</option>
+										</select>
+										<!--<input  placeholder="{{item.diponibilidadPuesto}}" ng-model="item.diponibilidadPuesto"-->
 								</td>
 								<td>
-									<button class="btn btn-success" ng-model="item.id" ng-change="actualizarPuesto(item)">Dar salida</button>
+									<button class="btn btn-success" ng-click="vm.actualizarPuesto(item)">Dar salida</button>
+									<!--ng-model="item.id"-->
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<!--<div class="col-md-6" ng-show="vm.show3">
-					
+
 				</div>-->
 		</div>
+	</div>
+	<div class="modal fade" id="modalPuesto">
+	  <div class="modal-dialog">
+	    <div class="modal-content modal-altura">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+	        <h4 class="modal-title">Carrito de compras</h4>
+	      </div>
+	      <div class="modal-body" ng-repeat="item in vm.carroActualizado">
+	        has seleccionado : {{item.automovil.placa}}
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="boton" class="btn btn-primary">Continuar Compra</button>
+	        <button type="submit" class="btn btn-success">Pasar a la caja</button>
+	        <!--<button id="btnNoRegistrar" class="btn btn-warning" data-dismiss="modal" ng-click="vm.noMostrarModal()">No quiero el descuento</button>-->
+	      </div>
+	    </div>
+	  </div>
 	</div>
