@@ -8,8 +8,7 @@ class ParqueaderoComponent {
   this.parqueaderosService = parqueaderosService;
   this.puestosService = puestosService;
   this.show=false;
-  this.show2=false;
-  this.show3=false;
+  this.show2=false; 
   }
 
   $onInit(){
@@ -26,9 +25,9 @@ class ParqueaderoComponent {
       console.log(response,'puestos');
         for(var i=0; i < response.length; i++){
           if(response[i].diponibilidadPuesto){
-          response[i].diponibilidadPuesto = 'Disponible';
+          response[i].diponibilidadPuesto = 1;       
         }else{
-          response[i].diponibilidadPuesto = 'Ocupado';
+          response[i].diponibilidadPuesto = 0;       
         }
       }
       this.puestos = response;
@@ -39,6 +38,7 @@ class ParqueaderoComponent {
   }
   ingresarCarro(){
     this.show=true;
+    this.ingresar.diponibilidadPuesto = 0;
     this.automovilesService.save(this.ingresar).$promise
     .then(response => {
       console.log(response,'se envio');
@@ -49,7 +49,7 @@ class ParqueaderoComponent {
     });
   }
 
-  asignarPuesto(){
+  asignarPuesto(){  
     this.show2=true;
     console.log(this.asignar);
     this.puestosService.save(this.asignar).$promise
@@ -62,14 +62,18 @@ class ParqueaderoComponent {
 
     });
   }
-  actualizarPuesto(item){
-    //this.show3=true;
+
+  capturar(item){
     $('#modalPuesto').modal();
+    this.carroActualizado = item;
+  }
+
+  actualizarPuesto(item){        
+    $('#modalPuesto').modal();   
+    $(item).hide();
     this.puestosService.update(item).$promise
     .then(response => {
-      console.log(response,'se saco el carro');
-      this.carroActualizado = response;
-      console.log(this.carroActualizado,'item cambiado');
+      console.log(response,'se saco el carro');         
     })
     .catch(err => {
       console.log(err);

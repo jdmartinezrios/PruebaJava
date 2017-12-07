@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="row">
-		<div class="col-md-6 offset-col-md-4">
+		<div class="col-md-6">
 			<form>
 				<h4 class="text-muted"><strong>Ingresar Automovil</strong></h4>
 				<div class="form-group">
@@ -21,7 +21,7 @@
 					<div type="text" class="form-control" placeholder="Tarifa">${{vm.parqueadero[0].tarifa}}</div>
 				</div>
 
-				<button ng-click="vm.ingresarCarro()" class="btn btn-primary col-md-3">Ingresar Carro</button>
+				<button ng-click="vm.ingresarCarro()" class="btn btn-success col-md-3">Ingresar Carro</button>
 			</form>
 		</div>
 		<div class="col-md-6" ng-show="vm.show">
@@ -34,7 +34,9 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>trada}}</td>
+					<tr>
+						<td>{{vm.mostrar.placa}}</td>
+						<td>{{vm.mostrar.horaEntrada}}</td>
 						<td>{{vm.mostrar.horaSalida}}</td>
 					</tr>
 				</tbody>
@@ -45,7 +47,7 @@
 	<br>
 	<div class="container">
 		<div class="row">
-				<div class="col-md-6 offset-col-md-4">
+				<div class="col-md-6">
 					<form>
 						<h4 class="text-muted"><strong>Asignar Puesto</strong></h4>
 						<div class="form-group">
@@ -56,9 +58,12 @@
 						</div>
 						<div class="form-group">
 							<input type="text" class="form-control" ng-model="vm.asignar.id" placeholder="Puesto">
-						</div>
-						<!--<button type="button" ng-change="actualizarPuesto(vm.asignar.id)" name="button">Sacar carro</button>-->
-						<button ng-click="vm.asignarPuesto()" class="btn btn-primary col-md-3">Asignar puesto</button>
+						</div>	
+						<div class="form-group">
+						<label for="">Puestos Disponibles</label>							
+							<div type="text" class="form-control">{{vm.parqueadero[0].tamano}}</div>
+						</div>						
+						<button ng-click="vm.asignarPuesto()" class="btn btn-success col-md-3">Asignar puesto</button>
 					</form>
 				</div>
 				<div class="col-md-6" ng-show="vm.show2">
@@ -84,21 +89,8 @@
 	<br>
 	<div class="container">
 		<div class="row">
-				<div class="col-md-12 offset-col-md-4">
-					<!--<form>
-						<h4 class="text-muted"><strong>Dar salida al carro</strong></h4>
-						<div class="form-group">
-							<input type="text" class="form-control" ng-model="vm.itemo" placeholder="Ingrese la placa">
-						</div>
-						<div class="form-group">
-							<input type="text" class="form-control" ng-model="vm.item.parqueadero.id" placeholder="Ingrese id del parqueadero">
-						</div>
-						<div class="form-group">
-							<input type="text" class="form-control" ng-model="vm.item.id" placeholder="Puesto">
-						</div>
-						<button ng-click="vm.actualizarPuesto()" class="btn btn-primary col-md-3">Sacar Carro</button>
-					</form>-->
-					<h4 class="text-muted"><strong>Dar salida al carro</strong></h4>
+				<div class="col-md-12">					
+					<h4 class="titleSalida text-center"><strong>retirar automovil</strong> <i class="fa fa-btc cash"></i></h4><br>
 					<table class="table table-responsive">
 						<thead>
 							<tr>
@@ -108,45 +100,40 @@
 								<th>Disponibilidad de Puesto</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody>	
 							<tr ng-repeat="item in vm.puestos">
 								<td>{{item.automovil.placa}}</td>
 								<td>{{item.parqueadero.id}}</td>
 								<td>{{item.id}}</td>
 								<td>
-										<!--<input type="number" max="1" min="0" ng-value="item.diponibilidadPuesto" placeholder="{{item.diponibilidadPuesto}}" ng-model="item.diponibilidadPuesto">-->
-										<select class="form-control" name="" style="width:200px">
-											<option value="1">{{item.diponibilidadPuesto}}</option>
-											<option value="0">{{item.diponibilidadPuesto}}</option>
-										</select>
-										<!--<input  placeholder="{{item.diponibilidadPuesto}}" ng-model="item.diponibilidadPuesto"-->
+									<input type="number" max="1" min="0" class="form-control"  style="width:200px" ng-value="item.diponibilidadPuesto" placeholder="{{item.diponibilidadPuesto}}" ng-model="item.diponibilidadPuesto">
 								</td>
 								<td>
-									<button class="btn btn-success" ng-click="vm.actualizarPuesto(item)">Dar salida</button>
+									<button class="btn btn-success" ng-click="vm.capturar(item)">Dar salida</button>
 									<!--ng-model="item.id"-->
 								</td>
 							</tr>
 						</tbody>
 					</table>
-				</div>
-				<!--<div class="col-md-6" ng-show="vm.show3">
-
-				</div>-->
+				</div>			
 		</div>
 	</div>
 	<div class="modal fade" id="modalPuesto">
 	  <div class="modal-dialog">
 	    <div class="modal-content modal-altura">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
-	        <h4 class="modal-title">Carrito de compras</h4>
+	      <div class="modal-header borderModalHeader">
+	        <button type="button" class="close quitarOpacity" aria-hidden="false"><i class="fa fa-btc cash"></i></button>
+	        <h4 class="modal-title titleModal">Cancelar Cuenta Parqueadero</h4>
 	      </div>
-	      <div class="modal-body" ng-repeat="item in vm.carroActualizado">
-	        has seleccionado : {{item.automovil.placa}}
+	      <div class="modal-body borderModalBody">
+	        <strong><h3>Automovil</h3></strong>
+	        <p class="text-muted">Placa: <span><strong>{{vm.carroActualizado.automovil.placa}}</strong></span></p>
+	        <p class="text-muted">Hora Entrada: <span><strong>{{vm.carroActualizado.automovil.horaEntrada}}</strong></span></p>
+	        <p class="text-muted">Hora Salida: <span><strong>{{vm.carroActualizado.automovil.horaSalida}}</strong></span></p>
+	        <p class="text-muted">Total a Pagar: <span><strong>${{vm.carroActualizado.parqueadero.tarifa*5}}</strong><span></p>
 	      </div>
-	      <div class="modal-footer">
-	      	<button type="boton" class="btn btn-primary">Continuar Compra</button>
-	        <button type="submit" class="btn btn-success">Pasar a la caja</button>
+	      <div class="modal-footer borderModalFooter">	      	
+	        <button type="submit" class="btn btn-success" ng-click="vm.actualizarPuesto(vm.carroActualizado)" data-dismiss="modal">Confirmar pago</button>
 	        <!--<button id="btnNoRegistrar" class="btn btn-warning" data-dismiss="modal" ng-click="vm.noMostrarModal()">No quiero el descuento</button>-->
 	      </div>
 	    </div>
