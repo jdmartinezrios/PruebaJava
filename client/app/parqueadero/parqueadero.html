@@ -18,7 +18,7 @@
 				</div>
 				<div class="form-group">
 					<label for="">Tarifa</label>
-					<div type="text" class="form-control" placeholder="Tarifa">${{vm.parqueadero[0].tarifa}}</div>
+					<div type="text"><input type="number" string-to-number ng-model="vm.parqueadero[0].tarifa" class="form-control" placeholder="${{vm.parqueadero.tarifa}}"> <button class="btn btn-success pull-right cambiar" ng-click="vm.actualizarTarifa(vm.parqueadero[0])">cambiar</button></div>
 				</div>
 
 				<button ng-click="vm.ingresarCarro()" class="btn btn-success col-md-3">Ingresar Carro</button>
@@ -90,7 +90,7 @@
 	<div class="container">
 		<div class="row">
 				<div class="col-md-12">					
-					<h4 class="titleSalida text-center"><strong>retirar automovil</strong> <i class="fa fa-btc cash"></i></h4><br>
+					<h4 class="titleSalida text-center"><strong>retirar automovil</strong> <i class="fa fa-btc cash"></i><br class="visible-xs"><br class="visible-xs"><span class="text-center ingreso visible-xs"><strong>Ingresos Parqueadero</strong><br>${{vm.parqueadero[0].ingresos}}</span> <span class="pull-right ingreso hidden-xs"><strong>Ingresos Parqueadero</strong> <br>${{vm.parqueadero[0].ingresos}}</h4><br>
 					<table class="table table-responsive">
 						<thead>
 							<tr>

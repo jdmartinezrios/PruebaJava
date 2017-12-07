@@ -1,5 +1,5 @@
 function parqueaderosService($resource,API){
-	return $resource(API+'/api/parqueaderos/:id',{
+	return $resource(API+'/api/parqueaderos',{
 		id:'@id'
 	},
 	{

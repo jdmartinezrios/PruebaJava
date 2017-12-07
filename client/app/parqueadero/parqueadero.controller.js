@@ -71,13 +71,24 @@ class ParqueaderoComponent {
   actualizarPuesto(item){        
     $('#modalPuesto').modal();   
     $(item).hide();
+    item.parqueadero.ingresos = item.parqueadero.tarifa;
+    console.log(item.parqueadero.ingresos);
     this.puestosService.update(item).$promise
-    .then(response => {
+    .then(response => {      
       console.log(response,'se saco el carro');         
     })
     .catch(err => {
       console.log(err);
 
+    });
+  }
+  actualizarTarifa(tarifa){
+    this.parqueaderosService.update(tarifa).$promise
+    .then(response => {      
+      console.log(response,'se actualizo la tarifa');         
+    })
+    .catch(err => {
+      console.log(err);
     });
   }
 }
