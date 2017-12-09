@@ -7,18 +7,19 @@
 					<input type="text" class="form-control" ng-model="vm.ingresar.placa" placeholder="Registre la placa">
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" ng-model="vm.ingresar.horaEntrada" placeholder="Hora entrada">
-				</div>
-				<div class="form-group">
-					<input type="text" class="form-control" ng-model="vm.ingresar.horaSalida" placeholder="Hora salida">
+					<div>
+						<input type="text" class="form-control" placeholder="{{vm.horas | date:'HH:mm a'}}">
+						<button type="button" class="btn btn-success pull-right cambiar" ng-click="vm.consultarHora()" name="button">Consultar Hora</button>
+					</div>
 				</div>
 				<div class="form-group">
 					<label for="">Hora Actual</label>
-					<div type="text" class="form-control" placeholder="Hora Actual">{{vm.parqueadero[0].horaActual}}</div>
+					<div type="text" class="form-control" placeholder="Hora Actual">{{vm.clock | date:'HH:mm:ss a'}}<!--{{vm.parqueadero[0].horaActual}}--></div>
 				</div>
 				<div class="form-group">
 					<label for="">Tarifa</label>
-					<div type="text"><input type="number" string-to-number ng-model="vm.parqueadero[0].tarifa" class="form-control" placeholder="${{vm.parqueadero.tarifa}}"> <button class="btn btn-success pull-right cambiar" ng-click="vm.actualizarTarifa(vm.parqueadero[0])">cambiar</button></div>
+					<div type="text"><input type="number" string-to-number ng-model="vm.parqueadero[0].tarifa" class="form-control" placeholder="${{vm.parqueadero[0].tarifa}}">
+						<button class="btn btn-success pull-right cambiar" ng-click="vm.actualizarTarifa(vm.parqueadero[0])">cambiar</button></div>
 				</div>
 
 				<button ng-click="vm.ingresarCarro()" class="btn btn-success col-md-3">Ingresar Carro</button>
@@ -30,14 +31,12 @@
 					<tr>
 						<th>Placa</th>
 						<th>Hora Entrada</th>
-						<th>Hora Salida</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td>{{vm.mostrar.placa}}</td>
-						<td>{{vm.mostrar.horaEntrada}}</td>
-						<td>{{vm.mostrar.horaSalida}}</td>
+						<td>{{vm.horas | date:'HH:mm a'}}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -58,11 +57,11 @@
 						</div>
 						<div class="form-group">
 							<input type="text" class="form-control" ng-model="vm.asignar.id" placeholder="Puesto">
-						</div>	
+						</div>
 						<div class="form-group">
-						<label for="">Puestos Disponibles</label>							
+						<label for="">Puestos Disponibles</label>
 							<div type="text" class="form-control">{{vm.parqueadero[0].tamano}}</div>
-						</div>						
+						</div>
 						<button ng-click="vm.asignarPuesto()" class="btn btn-success col-md-3">Asignar puesto</button>
 					</form>
 				</div>
@@ -89,20 +88,22 @@
 	<br>
 	<div class="container">
 		<div class="row">
-				<div class="col-md-12">					
+				<div class="col-md-12">
 					<h4 class="titleSalida text-center"><strong>retirar automovil</strong> <i class="fa fa-btc cash"></i><br class="visible-xs"><br class="visible-xs"><span class="text-center ingreso visible-xs"><strong>Ingresos Parqueadero</strong><br>${{vm.parqueadero[0].ingresos}}</span> <span class="pull-right ingreso hidden-xs"><strong>Ingresos Parqueadero</strong> <br>${{vm.parqueadero[0].ingresos}}</h4><br>
 					<table class="table table-responsive">
 						<thead>
 							<tr>
 								<th>Placa</th>
+								<th>Hora de entrada</th>
 								<th>Parqueadero</th>
 								<th>Puesto</th>
 								<th>Disponibilidad de Puesto</th>
 							</tr>
 						</thead>
-						<tbody>	
+						<tbody>
 							<tr ng-repeat="item in vm.puestos">
 								<td>{{item.automovil.placa}}</td>
+								<td>{{item.automovil.horaEntrada | date:'HH:mm a'}}</td>
 								<td>{{item.parqueadero.id}}</td>
 								<td>{{item.id}}</td>
 								<td>
@@ -115,7 +116,7 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>			
+				</div>
 		</div>
 	</div>
 	<div class="modal fade" id="modalPuesto">
@@ -128,11 +129,11 @@
 	      <div class="modal-body borderModalBody">
 	        <strong><h3>Automovil</h3></strong>
 	        <p class="text-muted">Placa: <span><strong>{{vm.carroActualizado.automovil.placa}}</strong></span></p>
-	        <p class="text-muted">Hora Entrada: <span><strong>{{vm.carroActualizado.automovil.horaEntrada}}</strong></span></p>
-	        <p class="text-muted">Hora Salida: <span><strong>{{vm.carroActualizado.automovil.horaSalida}}</strong></span></p>
+	        <p class="text-muted">Hora Entrada: <span><strong>{{vm.carroActualizado.automovil.horaEntrada | date:'HH:mm a'}}</strong></span></p>
+	        <p class="text-muted">Hora Salida: <span><strong>{{vm.horaSalida | date:'HH:mm a'}}</strong></span></p>
 	        <p class="text-muted">Total a Pagar: <span><strong>${{vm.carroActualizado.parqueadero.tarifa*5}}</strong><span></p>
 	      </div>
-	      <div class="modal-footer borderModalFooter">	      	
+	      <div class="modal-footer borderModalFooter">
 	        <button type="submit" class="btn btn-success" ng-click="vm.actualizarPuesto(vm.carroActualizado)" data-dismiss="modal">Confirmar pago</button>
 	        <!--<button id="btnNoRegistrar" class="btn btn-warning" data-dismiss="modal" ng-click="vm.noMostrarModal()">No quiero el descuento</button>-->
 	      </div>
