@@ -3,23 +3,21 @@
 (function(){
 
 class ParqueaderoComponent {
-  constructor(automovilesService,parqueaderosService,puestosService,$interval,$scope) {
+  constructor(automovilesService,parqueaderosService,puestosService,$interval) {
   this.automovilesService = automovilesService;
   this.parqueaderosService = parqueaderosService;
   this.puestosService = puestosService;
   this.$interval = $interval;
-  this.$scope = $scope;
   this.show=false;
   this.show2=false;
   this.clock = Date.now();
-
   }
   $onInit(){
-    var tick = function() {}
+    var tick = function() {};
     tick();
     this.$interval(() => {
       this.clock = Date.now();
-    }, 1000);
+    }, 1000);  
     this.parqueaderosService.query().$promise
     .then(response => {
       console.log(response,'parqueaderos');
@@ -47,7 +45,7 @@ class ParqueaderoComponent {
     this.automovilesService.query().$promise
     .then(response =>{
       console.log(response,'AUTOMOVILES');
-      this.automoviles = response;
+      this.automoviles = response;      
     })
     .catch(err => {
       console.log(err,'error');
@@ -64,7 +62,7 @@ class ParqueaderoComponent {
     this.automovilesService.save(this.ingresar).$promise
     .then(response => {
       console.log(response,'se envio');
-      this.mostrar = response;
+      this.mostrar = response;            
     })
     .catch(err => {
       console.log(err);
@@ -78,7 +76,7 @@ class ParqueaderoComponent {
     this.puestosService.save(this.asignar).$promise
     .then(response => {
       console.log(response,'se asigno puesto');
-      this.error = response;
+      this.carroAsignado = response;
     })
     .catch(err => {
       console.log(err);
@@ -87,16 +85,19 @@ class ParqueaderoComponent {
   }
 
   capturar(item){
-    $('#modalPuesto').modal();
-    this.carroActualizado = item;
+    $('#modalPuesto').modal();    
+    this.carroActualizado = item; 
     var hora2 = new Date();
     this.horaSalida = hora2.toJSON();
+    this.horaFinal = this.horaSalida;
   }
 
   actualizarPuesto(item){
     $('#modalPuesto').modal();
-    $(item).hide();
+    this.carrito = item;  
     item.parqueadero.ingresos = item.parqueadero.tarifa;
+    item.automovil.horaSalida = this.horaFinal;
+    this.horaFinalSalida = item.automovil.horaSalida;
     console.log(item.parqueadero.ingresos);
     this.puestosService.update(item).$promise
     .then(response => {
@@ -105,6 +106,17 @@ class ParqueaderoComponent {
     .catch(err => {
       console.log(err);
 
+    });           
+    this.automovilesService.update({
+      placa:this.carrito.automovil.placa,
+      horaSalida:this.horaFinalSalida,
+      horaEntrada:this.carrito.automovil.horaEntrada
+    }).$promise
+    .then(response=>{
+      console.log(response,'se actualizo la hora de salida');
+    })
+    .catch(err=>{
+      console.log(err);
     });
   }
   actualizarTarifa(tarifa){
