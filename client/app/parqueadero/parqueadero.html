@@ -1,5 +1,6 @@
 <div class="container">
-	<div class="row">
+	<div class="row borderRow">
+		<h1 class="text-center titleParqueadero"><strong>PARQUEADEROS</strong></h1>
 		<div class="col-md-6">
 			<form>
 				<h4 class="text-muted"><strong>Ingresar Automovil</strong></h4>
@@ -8,7 +9,7 @@
 				</div>
 				<div class="form-group">
 					<div>
-						<input type="text" class="form-control" placeholder="{{vm.horas | date:'hh:mm a'}}">
+						<input type="text" class="form-control placa" placeholder="{{vm.horas | date:'hh:mm a'}}">
 						<button type="button" class="btn btn-success pull-right cambiar" ng-click="vm.consultarHora()" name="button">Consultar Hora</button>
 					</div>
 				</div>
